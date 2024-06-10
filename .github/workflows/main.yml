@@ -30,7 +30,7 @@ jobs:
             ls -R
             flavorsJson=$(cat flavors.json)
             flavors=$(echo "$flavorsJson" | jq '.flavors[]')
-            first_package_name=$(echo "$flavors" | jq '.packageName')
+            first_package_name=$(echo "$flavors" | jq '.[1].packageName')
             echo "The first package name is: $first_package_name"
           
         
