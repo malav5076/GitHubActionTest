@@ -1,0 +1,23 @@
+import json
+
+with open('flavors.json', 'r') as file:
+    data = json.load(file)
+
+names = []
+packageNames = []
+tracks = []
+userFractions = []
+
+for flavor in data['flavors']:
+    names.append(flavor['name'])
+    packageNames.append(flavor['packageName'])
+    tracks.append(flavor['track'])
+    userFractions.append(flavor['userFraction'])
+
+result = {
+    'names': names,
+    'packageNames': packageNames,
+    'tracks': tracks,
+    'userFractions': userFractions
+}
+

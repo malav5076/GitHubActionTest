@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        iteration: [1, 2, 3, 4, 5]
 
     steps:
       - uses: actions/checkout@v4
@@ -24,4 +27,5 @@ jobs:
 
       - name: Run Python script
         run: |
-          python HelloWorld.py  # Relative path to your Python script in the repository
+          echo "Running iteration ${{ matrix.iteration }}"
+          python HelloWorld.py 
