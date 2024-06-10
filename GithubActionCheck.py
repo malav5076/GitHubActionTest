@@ -1,5 +1,4 @@
 import yaml
-import os
 
 # Function to write data to YAML file
 def write_yaml(filename, data):
