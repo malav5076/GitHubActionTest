@@ -27,9 +27,8 @@ jobs:
       
       - name: Read flavors from JSON and get first package name
         run: |
-            flavors=$(cat ../../flavors.json)
-            first_package=$(echo "$flavors" | jq -r '.[0].packageName')
-            echo "The first package name is: $first_package"
+            ls -R
+          
         
 
       - name: Run Python script
