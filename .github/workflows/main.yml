@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        iteration: [1, 2, 3, 4, 5]
+        iteration: [1]
 
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
       
       - name: Read flavors from JSON and get first package name
         run: |
-            flavors=$(cat ./flavors.json)
+            flavors=$(cat ../../flavors.json)
             first_package=$(echo "$flavors" | jq -r '.[0].packageName')
             echo "The first package name is: $first_package"
         
