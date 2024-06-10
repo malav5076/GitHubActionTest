@@ -29,9 +29,10 @@ jobs:
         run: |
             ls -R
             flavorsJson=$(cat flavors.json)
-            flavors=$(echo "$flavorsJson" | jq '.flavors[]')
-            first_package_name=$(echo "$flavors" | jq '.[1].packageName')
+            flavors=$(echo "$flavorsJson" | jq '.flavors')
+            first_package_name=$(echo "$flavors" | jq -r '.[0].packageName')
             echo "The first package name is: $first_package_name"
+
           
         
 
