@@ -2,21 +2,9 @@
     "flavors": [
       {
         "name": "flavor1",
-        "packageName": "com.example.MyApp",
+        "packageName": "com.medpresso.Lonestar.fmneuro",
         "track": "production",
         "userFraction": 0.33
-      },
-      {
-        "name": "flavor2",
-        "packageName": "com.example.MyApp.flavor2",
-        "track": "qa",
-        "userFraction": 0.5
-      },
-      {
-        "name": "flavor3",
-        "packageName": "com.example.MyApp.flavor3",
-        "track": "draft",
-        "userFraction": 1.0
       }
     ]
   }
