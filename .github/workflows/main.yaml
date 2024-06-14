@@ -47,7 +47,7 @@ jobs:
     steps:
       - name: list the files
         run: |
-            ls -la
+            ls -R
 
       - name: Sign AAB
         id: sign        
@@ -56,7 +56,7 @@ jobs:
             releaseDirectory: fmneuroDebug       
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
-            keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+            keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
             keyPassword: ${{ secrets.KEY_PASSWORD }}
           
 
