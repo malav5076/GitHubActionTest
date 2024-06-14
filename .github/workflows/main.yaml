@@ -47,7 +47,7 @@ jobs:
     steps:
       - name: list the files
         run: |
-            ll
+            ls -la
 
       - name: Sign AAB
         id: sign        
