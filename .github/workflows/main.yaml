@@ -45,8 +45,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
-   
+      - name: list the files
+        run: |
+            ls
+            
       - name: Sign AAB
         id: sign        
         uses: r0adkll/sign-android-release@v1         
