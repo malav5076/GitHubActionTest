@@ -38,11 +38,14 @@ jobs:
         run: |
           flavorsJson=$(cat flavors.json)
           packageNames=$(echo "$flavorsJson" | jq -r '.flavors[].packageName')
-          echo "::set-output name=packageNames::$packageNames"
+          
 
   sign_and_release:
     name: Sign and Release Bundles
     runs-on: ubuntu-latest
+
+
+
     needs: 
       - build_info_extractor
       - setup_java
@@ -52,26 +55,22 @@ jobs:
         packageName: ${{needs.build_info_extractor.outputs.packageNames}}
 
     steps:
+
+      - name: Extract Package Names
+        id: extract_packageNames
+        run: |
+          echo "Matrix packageName is: ${{ matrix.packageName }}"
+          echo "directory Name is ${{matrix.packageName}}debug"          
    
       - name: Sign AAB
         id: sign        
         uses: r0adkll/sign-android-release@v1         
         with:
-            releaseDirectory: app/build/outputs/bundle/release       
+            releaseDirectory: app/build/outputs/bundle/release/${{matrix.packageName}}debug       
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
             keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
             keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-      - name: Release AAB
-        id: release
-
-        uses: r0adkll/upload-google-play@v1
-        with:
-            serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_JSON}}
-            packageName: ${{matrix.packageName}}
-            releaseFile: ${{matrix.packageName}}debug/app-${{matrix.packageName}}-debug.aab
-            track: qa
           
 
 
