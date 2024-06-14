@@ -51,7 +51,7 @@ jobs:
         id: sign        
         uses: r0adkll/sign-android-release@v1         
         with:
-            releaseDirectory: fmneurodebug       
+            releaseDirectory: fmneuroDebug       
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
             keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
