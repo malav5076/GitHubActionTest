@@ -47,8 +47,8 @@ jobs:
     steps:
       - name: list the files
         run: |
-            ls
-            
+            ll
+
       - name: Sign AAB
         id: sign        
         uses: r0adkll/sign-android-release@v1         
