@@ -26,12 +26,24 @@ jobs:
     name: Extract Package Names
     runs-on: ubuntu-latest
 
+
     outputs:
       packageNames: ${{ steps.extract_packageNames.outputs.packageNames }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Print full current directory path
+        run: pwd
+
+      - name: Extract and print current directory name
+        run: |
+          current_dir_name=$(basename "$PWD")
+          echo "Current directory name is: $current_dir_name"
+      - name: List the files and directories
+        run: |
+           ls -R
 
       - name: Extract Package Names
         id: extract_packageNames
@@ -45,6 +57,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    
+      - name: Checkout code
+        uses: actions/checkout@v2
   
 
       - name: Print full current directory path
@@ -56,13 +72,13 @@ jobs:
           echo "Current directory name is: $current_dir_name"
       - name: List the files and directories
         run: |
-           ls -l
+           ls -R
 
       - name: Sign AAB
         id: sign        
         uses: r0adkll/sign-android-release@v1         
         with:
-            releaseDirectory: ../fmneuroDebug
+            releaseDirectory: fmneuroDebug
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
             keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
