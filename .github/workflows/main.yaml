@@ -50,6 +50,8 @@ jobs:
         run: |
           flavorsJson=$(cat flavors.json)
           packageNames=$(echo "$flavorsJson" | jq '.flavors[].packageName')
+          echo "packageNames=$packageNames" >> $GITHUB_OUTPUT   
+
               
       - name: print the packageNames
         run: |
