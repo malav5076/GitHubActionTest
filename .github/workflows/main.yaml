@@ -50,7 +50,11 @@ jobs:
         run: |
           flavorsJson=$(cat flavors.json)
           packageNames=$(echo "$flavorsJson" | jq -r '.flavors[].packageName')
-          
+              
+      - name: print the packageNames
+        run: |
+         echo "Extracted Package Names: ${{ steps.extract_packageNames.outputs.packageNames}}"     
+
 
   sign_and_release:
     name: Sign and Release Bundles
@@ -76,7 +80,7 @@ jobs:
 
       - name: print the output of packageName
         run: | 
-             echo "Extracted Package Names: ${{ needs.build_info_extractor.outputs.packageNames[0] }}"     
+             echo "Extracted Package Names: ${{ needs.build_info_extractor.outputs.packageNames}}"     
 
       - name: Sign AAB
         id: sign        
