@@ -56,9 +56,9 @@ jobs:
     name: Sign and Release Bundles
     runs-on: ubuntu-latest
 
-    steps:
-
+    needs: [setup_java, build_info_extractor]
     
+    steps:  
       - name: Checkout code
         uses: actions/checkout@v2
   
@@ -78,7 +78,7 @@ jobs:
         id: sign        
         uses: r0adkll/sign-android-release@v1         
         with:
-            releaseDirectory: pednutriRelease
+            releaseDirectory: ${{needs.build_info_extractor.outputs.packageNames.packageName[0]}}
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
             keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -90,8 +90,8 @@ jobs:
         uses: r0adkll/upload-google-play@v1         
         with:
                 serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-                packageName: com.medpresso.Lonestar.pednutri
-                releaseFiles: pednutriRelease/app-pednutri-release.aab
+                packageName: com.medpresso.Lonestar.${{needs.build_info_extractor.outputs.packageNames[0]}}
+                releaseFiles: ${{needs.build_info_extractor.outputs.packageNames[0]}}Release/app-${{needs.build_info_extractor.outputs.packageNames[0]}}-release.aab
                 track: internal     
           
       

@@ -2,7 +2,7 @@
     "flavors": [
       {
         "name": "flavor1",
-        "packageName": "com.medpresso.Lonestar.fmneuro",
+        "packageName": "com.medpresso.Lonestar.pednutri",
         "track": "production",
         "userFraction": 0.33
       }
