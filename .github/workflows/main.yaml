@@ -45,15 +45,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: list the files
+  
+
+      - name: Print current directory structure
         run: |
+            echo "Current directory structure:"
             ls -R
+
+      - name: List files in the specified directory
+        run: |
+            echo "Files in GitHubActionTest/fmneuroDebug:"
+            ls -1 GitHubActionTest/fmneuroDebug || echo "Directory not found"
+
 
       - name: Sign AAB
         id: sign        
         uses: r0adkll/sign-android-release@v1         
         with:
-            releaseDirectory: GitHubActionTest\fmneuroDebug      
+            releaseDirectory: fmneuroDebug   
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
             keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
