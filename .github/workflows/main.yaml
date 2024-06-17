@@ -56,13 +56,13 @@ jobs:
           echo "Current directory name is: $current_dir_name"
       - name: List the files and directories
         run: |
-           ls -R
+           ll
 
       - name: Sign AAB
         id: sign        
         uses: r0adkll/sign-android-release@v1         
         with:
-            releaseDirectory: ../../fmneuroDebug
+            releaseDirectory: ../fmneuroDebug
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
             keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
