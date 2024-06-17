@@ -78,7 +78,7 @@ jobs:
         id: sign        
         uses: r0adkll/sign-android-release@v1         
         with:
-            releaseDirectory: fmneuroDebug
+            releaseDirectory: pednutriRelease
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
             keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -90,8 +90,8 @@ jobs:
         uses: r0adkll/upload-google-play@v1         
         with:
                 serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-                packageName: com.medpresso.Lonestar.fmneuro
-                releaseFiles: fmneuroDebug/app-fmneuro-debug.aab
+                packageName: com.medpresso.Lonestar.pednutri
+                releaseFiles: pednutriRelease/app-pednutri-release.aab
                 track: qa     
           
       
