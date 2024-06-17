@@ -88,7 +88,7 @@ jobs:
         id: sign        
         uses: r0adkll/sign-android-release@v1         
         with:
-            releaseDirectory: ${{needs.build_info_extractor.outputs.packageNames.packageName[0]}}
+            releaseDirectory: ${{needs.build_info_extractor.outputs.packageNames[0]}}
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
             keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
