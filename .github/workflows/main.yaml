@@ -49,7 +49,7 @@ jobs:
         id: extract_packageNames
         run: |
           flavorsJson=$(cat flavors.json)
-          packageNames=$(echo "$flavorsJson" | jq -r '.flavorsJson[].packageName')
+          packageNames=$(echo "$flavorsJson" | jq '.flavors[].packageName')
               
       - name: print the packageNames
         run: |
