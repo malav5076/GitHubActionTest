@@ -47,15 +47,13 @@ jobs:
     steps:
   
 
-      - name: Print current directory structure
-        run: |
-            echo "Current directory structure:"
-            ls -R
+      - name: Print full current directory path
+        run: pwd
 
-      - name: List files in the specified directory
+      - name: Extract and print current directory name
         run: |
-            echo "Files in GitHubActionTest/fmneuroDebug:"
-            ls -1 GitHubActionTest/fmneuroDebug || echo "Directory not found"
+          current_dir_name=$(basename "$PWD")
+          echo "Current directory name is: $current_dir_name"
 
 
       - name: Sign AAB
