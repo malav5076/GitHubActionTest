@@ -5,6 +5,12 @@
         "packageName": "com.medpresso.Lonestar.pednutri",
         "track": "production",
         "userFraction": 0.33
+      },
+      {
+        "name": "flavor2",
+        "packageName": "com.medpresso.Lonestar.dummyApp",
+        "track": "production",
+        "userFraction": 0.33
       }
     ]
   }
