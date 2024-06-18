@@ -49,8 +49,8 @@ jobs:
         id: extract_packageNames
         run: |
           flavorsJson=$(cat flavors.json)
-          packageNames=$(echo "$flavorsJson" | jq '.flavors[].packageName')
-          echo "packageNames=$packageNames" >> $GITHUB_OUTPUT   
+          packageNames=$(echo "$flavorsJson" | jq -r '.flavors[].packageName')
+          echo "::set-output name=packageNames::$packageNames"   
 
               
       - name: print the packageNames
@@ -100,7 +100,7 @@ jobs:
         uses: r0adkll/upload-google-play@v1         
         with:
                 serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-                packageName: com.medpresso.Lonestar.${{needs.build_info_extractor.outputs.packageNames[0]}}
+                packageName: ${{needs.build_info_extractor.outputs.packageNames[0]}}
                 releaseFiles: ${{needs.build_info_extractor.outputs.packageNames[0]}}Release/app-${{needs.build_info_extractor.outputs.packageNames[0]}}-release.aab
                 track: internal     
           
