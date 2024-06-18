@@ -55,7 +55,7 @@ jobs:
               
       - name: print the packageNames
         run: |
-         echo "Extracted Package Names: ${{ steps.extract_packageNames.outputs.packageNames}}"     
+         echo "Extracted Package Names: ${{ steps.extract_packageNames.outputs.packageNames[0]}}"     
 
 
   sign_and_release:
@@ -82,7 +82,7 @@ jobs:
 
       - name: print the output of packageName
         run: | 
-             echo "Extracted Package Names: ${{ needs.build_info_extractor.outputs.packageNames}}"     
+             echo "Extracted Package Names: ${{ needs.build_info_extractor.outputs.packageNames[0]}}"     
 
       - name: Sign AAB
         id: sign        
