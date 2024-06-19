@@ -48,8 +48,7 @@ jobs:
       - name: Read flavor JSON File
         id: read_flavor_json_file
         run: |
-          flavorsJson=$ jq -c '.flavors' flavors.json
-          echo "flavorsJsonOutput={$flavorsJson}" >> "$GITHUB_OUTPUT"
+          echo "flavorsJsonOutput={\"flavors\": [{\"name\": \"flavor1\", \"packageName\": \"pednutri\", \"track\": \"production\", \"userFraction\": 0.33}, {\"name\": \"flavor2\", \"packageName\": \"dummyApp\", \"track\": \"production\", \"userFraction\": 0.33}]}" >> $GITHUB_OUTPUT
           
 
           
