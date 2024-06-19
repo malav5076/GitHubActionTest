@@ -49,7 +49,7 @@ jobs:
         id: read_flavor_json_file
         run: |
           flavorsJson=$ jq '.flavors' flavors.json
-          echo "flavorsJson=$(flavrosJson) >> $GITHUB_OUTPUT     
+          echo "flavorsJson=$(flavorsJson) >> $GITHUB_OUTPUT     
     
   build_with_gradle:
     name: Gradle version
