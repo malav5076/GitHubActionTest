@@ -48,7 +48,7 @@ jobs:
       - name: Read flavor JSON File
         id: read_flavor_json_file
         run: |
-          flavorsJson=$(cat flavors.json)
+          flavorsJson=$ jq '.flavors' flavors.json
               
     
   build_with_gradle:
