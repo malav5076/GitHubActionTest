@@ -48,7 +48,7 @@ jobs:
       - name: Read flavor JSON File
         id: read_flavor_json_file
         run: |
-          flavorsJson=$ jq '.' fruit.json
+          flavorsJson=$ jq '.' flavors.json
           echo "flavorsJson={flavorsJson}" >> $GITHUB_OUTPUT
           
 
