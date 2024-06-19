@@ -57,12 +57,19 @@ jobs:
         run: |
          echo "Extracted Package Names: ${{ steps.extract_packageNames.outputs.packageNames[0]}}"     
 
+  build_with_gradle:
+    name: Extract Package Names
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Gradle version
+        run:  ./gradlew -v 
+   
   sign_and_release:
     name: Sign and Release Bundles
     runs-on: ubuntu-latest
 
-    needs: [setup_java, build_info_extractor]
+    needs: [setup_java, build_with_gradle, build_info_extractor]
     
     steps:  
       - name: Checkout code
@@ -84,6 +91,7 @@ jobs:
         run: | 
              echo "Extracted Package Names: ${{ needs.build_info_extractor.outputs.packageNames[0]}}"     
 
+        
       - name: Sign AAB
         id: sign        
         uses: r0adkll/sign-android-release@v1         
