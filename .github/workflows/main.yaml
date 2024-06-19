@@ -67,7 +67,7 @@ jobs:
     needs: [setup_java, json_file_reader]
 
     strategy:
-      matrix: ${{(fromJSON(needs.json_file_reader.outputs.flavorsJson))}} 
+      matrix: ${{(fromJson(needs.json_file_reader.outputs.flavorsJson))}} 
     
     steps:  
       - name: Checkout code
