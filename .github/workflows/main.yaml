@@ -48,7 +48,8 @@ jobs:
       - name: Read flavor JSON File
         id: read_flavor_json_file
         run: |
-          echo "flavorsJson={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> $GITHUB_OUTPUT
+          flavorsJson=$ jq '.' fruit.json
+          echo "flavorsJson={flavorsJson}" >> $GITHUB_OUTPUT
           
 
           
