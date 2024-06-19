@@ -28,7 +28,7 @@ jobs:
 
 
     outputs:
-      flavorsJsonOutput: ${{ steps.read_flavor_json_file.outputs.flavorsJson }}
+      flavorsJsonOutput: ${{ steps.read_flavor_json_file.outputs.flavorsJsonOutput }}
 
     steps:
       - name: Checkout code
