@@ -22,13 +22,13 @@ jobs:
     
        
 
-  build_info_extractor:
-    name: Extract Package Names
+  json_file_reader:
+    name: Reads json file
     runs-on: ubuntu-latest
 
 
     outputs:
-      packageNames: ${{ steps.extract_packageNames.outputs.packageNames }}
+      flavorsJson: ${{ steps.read_flavor_json_file.outputs.flavorsJson }}
 
     steps:
       - name: Checkout code
@@ -45,31 +45,29 @@ jobs:
         run: |
            ls -R
 
-      - name: Extract Package Names
-        id: extract_packageNames
+      - name: Read flavor JSON File
+        id: read_flavor_json_file
         run: |
           flavorsJson=$(cat flavors.json)
-          packageNames=$(jq '[.flavors[] | .packageName]' flavors.json)
-          echo "::set-output name=packageNames::$packageNames"   
-
               
-      - name: print the packageNames
-        run: |
-         echo "Extracted Package Names: ${{ steps.extract_packageNames.outputs.packageNames[0]}}"     
-
+    
   build_with_gradle:
-    name: Extract Package Names
+    name: Gradle version
     runs-on: ubuntu-latest
 
     steps:
       - name: Gradle version
         run:  ./gradlew -v 
+
    
   sign_and_release:
     name: Sign and Release Bundles
     runs-on: ubuntu-latest
 
-    needs: [setup_java, build_with_gradle, build_info_extractor]
+    needs: [setup_java, build_with_gradle, json_file_reader]
+
+    strategy:
+      matrix: ${{(fromJSON(needs.json_file_reader.outputs.flavorsJson))}} 
     
     steps:  
       - name: Checkout code
@@ -89,14 +87,14 @@ jobs:
 
       - name: print the output of packageName
         run: | 
-             echo "Extracted Package Names: ${{ needs.build_info_extractor.outputs.packageNames[0]}}"     
+             echo "Extracted Package Names: ${{matrix.packageName}}"     
 
         
       - name: Sign AAB
         id: sign        
         uses: r0adkll/sign-android-release@v1         
         with:
-            releaseDirectory: ${{needs.build_info_extractor.outputs.packageNames[0]}}
+            releaseDirectory: ${{matrix.packageName}}
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
             keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -108,8 +106,8 @@ jobs:
         uses: r0adkll/upload-google-play@v1         
         with:
                 serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-                packageName: ${{needs.build_info_extractor.outputs.packageNames[0]}}
-                releaseFiles: ${{needs.build_info_extractor.outputs.packageNames[0]}}Release/app-${{needs.build_info_extractor.outputs.packageNames[0]}}-release.aab
+                packageName: ${{matrix.packageName}}
+                releaseFiles: ${{matrix.packageName}}Release/app-${{matrix.packageName}}-release.aab
                 track: internal     
           
       

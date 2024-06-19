@@ -2,13 +2,13 @@
     "flavors": [
       {
         "name": "flavor1",
-        "packageName": "com.medpresso.Lonestar.pednutri",
+        "packageName": "pednutri",
         "track": "production",
         "userFraction": 0.33
       },
       {
         "name": "flavor2",
-        "packageName": "com.medpresso.Lonestar.dummyApp",
+        "packageName": "dummyApp",
         "track": "production",
         "userFraction": 0.33
       }
