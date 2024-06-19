@@ -49,7 +49,7 @@ jobs:
         id: read_flavor_json_file
         run: |
           flavorsJson=$ jq '.flavors' flavors.json
-          echo "flavorsJson={$flavorsJson}" >> $GITHUB_OUTPUT
+          echo "::set-output name=flavorsJson::$flavorsJson"
           
 
           
@@ -70,7 +70,7 @@ jobs:
     needs: [setup_java, json_file_reader]
 
     strategy:
-      matrix: ${{(fromJson(needs.json_file_reader.outputs.flavorsJson))}} 
+      matrix: ${{fromJson(needs.json_file_reader.outputs.flavorsJson)}} 
     
     steps:  
       - name: Checkout code
