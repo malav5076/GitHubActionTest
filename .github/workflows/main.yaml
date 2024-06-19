@@ -48,8 +48,8 @@ jobs:
       - name: Read flavor JSON File
         id: read_flavor_json_file
         run: |
-          flavorsJson=$ jq '.flavors' flavors.json
-          echo "::set-output name=flavorsJson::$flavorsJson"
+          flavorsJson=$ jq -c '.flavors' flavors.json
+          echo "flavorsJson={$flavorsJson}" >> $GITHUB_OUTPUT
           
 
           
