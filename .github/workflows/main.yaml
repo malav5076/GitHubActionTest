@@ -49,7 +49,7 @@ jobs:
         id: read_flavor_json_file
         run: |
           flavorsJson=$ jq '.flavors' flavors.json
-          echo "flavorsJson=flavorsJson" >> "$GITHUB_OUTPUT"
+          echo "flavorsJson=flavorsJson" >> $GITHUB_OUTPUT
 
           
     
