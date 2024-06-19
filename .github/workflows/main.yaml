@@ -89,14 +89,14 @@ jobs:
 
       - name: print the output of packageName
         run: | 
-             echo "Extracted Package Names: ${{matrix.packageName}}"     
+             echo "Extracted Package Names: ${{matrix.name}}"     
 
         
       - name: Sign AAB
         id: sign        
         uses: r0adkll/sign-android-release@v1         
         with:
-            releaseDirectory: ${{matrix.packageName}}
+            releaseDirectory: ${{matrix.name}}
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
             keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -108,8 +108,8 @@ jobs:
         uses: r0adkll/upload-google-play@v1         
         with:
                 serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-                packageName: ${{matrix.packageName}}
-                releaseFiles: ${{matrix.packageName}}Release/app-${{matrix.packageName}}-release.aab
+                packageName: ${{matrix.name}}
+                releaseFiles: ${{matrix.name}}Release/app-${{matrix.name}}-release.aab
                 track: internal     
           
       
