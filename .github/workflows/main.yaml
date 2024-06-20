@@ -48,7 +48,7 @@ jobs:
       - name: Read flavor JSON File
         id: read_flavor_json_file
         run: |
-            echo "matrix={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> $GITHUB_OUTPUT
+            echo "matrix="{\"flavors\": [{\"name\": \"flavor1\", \"packageName\": \"pednutri\", \"track\": \"production\", \"userFraction\": 0.33}, {\"name\": \"flavor2\", \"packageName\": \"dummyApp\", \"track\": \"production\", \"userFraction\": 0.33}]}" >> $GITHUB_OUTPUT
 
           
     
@@ -88,7 +88,7 @@ jobs:
 
       - name: print the output of packageName
         run: | 
-             echo "Extracted Package Names: ${{matrix.project}}"     
+             echo "Extracted Package Names: ${{matrix.packageName}}"     
         
       - name: Sign AAB
         id: sign        
@@ -106,8 +106,8 @@ jobs:
         uses: r0adkll/upload-google-play@v1         
         with:
                 serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-                packageName: ${{matrix.project}}
-                releaseFiles: ${{matrix.project}}Release/app-${{matrix.project}}-release.aab
+                packageName: ${{matrix.packageName}}
+                releaseFiles: ${{matrix.packageName}}Release/app-${{matrix.packageName}}-release.aab
                 track: internal     
           
       
