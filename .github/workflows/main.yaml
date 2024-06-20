@@ -28,7 +28,7 @@ jobs:
 
 
     outputs:
-      matrix: ${{ steps.read_flavor_json_file.outputs.flavorsJsonOutput }}
+      flavors-json: ${{ steps.read_flavor_json_file.outputs.flavors-json }}
 
     steps:
       - name: Checkout code
@@ -48,8 +48,8 @@ jobs:
       - name: Read flavor JSON File
         id: read_flavor_json_file
         run: |
-            echo "::set-output name=matrix::{\"flavors\": [{\"name\": \"flavor1\", \"packageName\": \"pednutri\", \"track\": \"production\", \"userFraction\": 0.33}, {\"name\": \"flavor2\", \"packageName\": \"dummyApp\", \"track\": \"production\", \"userFraction\": 0.33}]}"
-
+            flavorsJson=$(jq -c '.flavors' flavors.json)
+            echo "flavors-json=$flavorsJson" >> $GITHUB_OUTPUT
 
           
     
@@ -69,7 +69,7 @@ jobs:
     needs: [setup_java, json_file_reader]
 
     strategy:
-      matrix: ${{fromJson(needs.json_file_reader.outputs.matrix)}} 
+      matrix: ${{fromJson(needs.json_file_reader.outputs.flavors-json)}} 
     
     steps:  
       - name: Checkout code
@@ -89,14 +89,14 @@ jobs:
 
       - name: print the output of packageName
         run: | 
-             echo "Extracted Package Names: ${{matrix.name}}"     
+             echo "Extracted Package Names: ${{matrix.packageName}}"     
 
         
       - name: Sign AAB
         id: sign        
         uses: r0adkll/sign-android-release@v1         
         with:
-            releaseDirectory: ${{matrix.name}}
+            releaseDirectory: ${{matrix.packageName}}
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
             keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -108,8 +108,8 @@ jobs:
         uses: r0adkll/upload-google-play@v1         
         with:
                 serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-                packageName: ${{matrix.name}}
-                releaseFiles: ${{matrix.name}}Release/app-${{matrix.name}}-release.aab
+                packageName: ${{matrix.packageName}}
+                releaseFiles: ${{matrix.packageName}}Release/app-${{matrix.packageName}}-release.aab
                 track: internal     
           
       
