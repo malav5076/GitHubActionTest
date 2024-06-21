@@ -78,17 +78,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: print the output of packageName
+      - name: generate_bundle
         run: | 
-             name="${{ matrix.name }}"
+             name="${{ matrix.flavorName }}"
              capitalized_name="$(echo "${name:0:1}" | tr '[:lower:]' '[:upper:]')${name:1}"
-             echo "Extracted Package Names: build${capitalized_name}Release"     
+             echo "Extracted bundle release name: build${capitalized_name}Release"  
+             ./gradlew build${capitalized_name}Release   
         
       - name: Sign AAB
         id: sign        
         uses: r0adkll/sign-android-release@v1         
         with:
-            releaseDirectory: ${{matrix.packageName}}
+            releaseDirectory: app/build/outputs/bundle/${{matrix.flavorName}}Release
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
             keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -101,7 +102,7 @@ jobs:
         with:
                 serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
                 packageName: ${{matrix.packageName}}
-                releaseFiles: ${{matrix.packageName}}Release/app-${{matrix.packageName}}-release.aab
+                releaseFiles: app/build/outputs/bundle/${{matrix.flavorName}}Release/app-${{matrix.flavorName}}-release.aab
                 track: internal     
           
       

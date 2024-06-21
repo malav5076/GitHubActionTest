@@ -1,5 +1,4 @@
-{
-    "include": [
+ [
       {
         "name": "flavor1",
         "packageName": "pednutri",
@@ -12,6 +11,6 @@
         "track": "production",
         "userFraction": 0.33
       }
-    ]
-}
+]
+
   
