@@ -80,7 +80,8 @@ jobs:
 
       - name: print the output of packageName
         run: | 
-             echo "Extracted Package Names: build${{matrix.name}}Release"     
+             capitalized_name="$(echo "${name^}")"
+             echo "Extracted Package Names: build${capitalized_name}Release"     
         
       - name: Sign AAB
         id: sign        
