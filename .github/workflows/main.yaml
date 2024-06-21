@@ -48,7 +48,7 @@ jobs:
       - name: Read flavor JSON File
         id: read_flavor_json_file
         run: |
-            matrix=$ jq '.include' flavors.json 
+            matrix=$ jq '.' flavors.json 
             echo "matrix=$matrix" >> $GITHUB_OUTPUT
           
     
