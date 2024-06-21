@@ -48,7 +48,7 @@ jobs:
       - name: Read flavor JSON File
         id: read_flavor_json_file
         run: |
-            echo "matrix={\"flavors\": [{\"name\": \"flavor1\", \"packageName\": \"pednutri\", \"track\": \"production\", \"userFraction\": 0.33}]}" >> $GITHUB_OUTPUT
+            echo $ jq '.include' flavors.json >> $GITHUB_OUTPUT
 
           
     
@@ -57,9 +57,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+     
       - name: Gradle version
         run:  ./gradlew -v 
 
+      - name: generateFlavorsJson   
+        run: |
+            ./gradlew generateFlavorsJson 
    
   sign_and_release:
     name: Sign and Release Bundles
@@ -73,22 +77,10 @@ jobs:
     steps:  
       - name: Checkout code
         uses: actions/checkout@v2
-  
-
-      - name: Print full current directory path
-        run: pwd
-
-      - name: Extract and print current directory name
-        run: |
-          current_dir_name=$(basename "$PWD")
-          echo "Current directory name is: $current_dir_name"
-      - name: List the files and directories
-        run: |
-           ls -R
 
       - name: print the output of packageName
         run: | 
-             echo "Extracted Package Names: ${{matrix.packageName}}"     
+             echo "Extracted Package Names: build${matrix.name^}Release"     
         
       - name: Sign AAB
         id: sign        

@@ -1,5 +1,5 @@
 {
-    "flavors": [
+    "include": [
       {
         "name": "flavor1",
         "packageName": "pednutri",
