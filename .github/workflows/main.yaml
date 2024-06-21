@@ -48,7 +48,8 @@ jobs:
       - name: Read flavor JSON File
         id: read_flavor_json_file
         run: |
-            echo "matrix=$ jq -c '.' flavors.json" >> $GITHUB_OUTPUT
+              matrix=$(jq -c . flavors.json)
+              echo "::set-output name=matrix::$matrix"
           
     
   build_with_gradle:
