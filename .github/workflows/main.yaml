@@ -82,7 +82,7 @@ jobs:
         run: | 
              name="${{ matrix.flavorName }}"
              capitalized_name="$(echo "${name:0:1}" | tr '[:lower:]' '[:upper:]')${name:1}"
-             echo "Extracted bundle release name: build${capitalized_name}Release"  
+             echo "Extracted bundle release name: build${name}Release"  
              ./gradlew build${capitalized_name}Release   
         
       - name: Sign AAB
