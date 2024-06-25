@@ -80,7 +80,7 @@ jobs:
 
       - name: generate_bundle
         run: | 
-             name=${{ matrix.flavorName }}
+             name=${{matrix.variantName}}
              echo "flavor name is $name"
              capitalized_name="$(echo "${name:0:1}" | tr '[:lower:]' '[:upper:]')${name:1}"
              echo "Extracted bundle release name: build${name}Release"  
@@ -90,7 +90,7 @@ jobs:
         id: sign        
         uses: r0adkll/sign-android-release@v1         
         with:
-            releaseDirectory: app/build/outputs/bundle/${{matrix.flavorName}}Release
+            releaseDirectory: app/build/outputs/bundle/${{matrix.variantName}}Release
             signingKeyBase64: ${{ secrets.SIGNING_KEY }}      
             alias: ${{ secrets.ALIAS }}   
             keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -103,7 +103,7 @@ jobs:
         with:
                 serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
                 packageName: ${{matrix.packageName}}
-                releaseFiles: app/build/outputs/bundle/${{matrix.flavorName}}Release/app-${{matrix.flavorName}}-release.aab
+                releaseFiles: app/build/outputs/bundle/${{matrix.variantName}}Release/app-${{matrix.variantName}}-release.aab
                 track: internal     
           
       
