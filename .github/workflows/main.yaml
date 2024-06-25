@@ -80,7 +80,8 @@ jobs:
 
       - name: generate_bundle
         run: | 
-             name="${{ matrix.flavorName }}"
+             name=${{ matrix.flavorName }}
+             echo "flavor name is $name"
              capitalized_name="$(echo "${name:0:1}" | tr '[:lower:]' '[:upper:]')${name:1}"
              echo "Extracted bundle release name: build${name}Release"  
              ./gradlew build${capitalized_name}Release   
