@@ -1,13 +1,13 @@
 {
     "include": [
       {
-        "name": "flavor1",
+        "variantName": "flavor1",
         "packageName": "pednutri",
         "track": "production",
         "userFraction": 0.33
       },
       {
-        "name": "flavor2",
+        "variantName": "flavor2",
         "packageName": "dummyApp",
         "track": "production",
         "userFraction": 0.33
