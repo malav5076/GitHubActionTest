@@ -2,7 +2,7 @@
     "include": [
       {
         "variantName": "flavor1",
-        "packageName": "pednutri",
+        "packageName": "pednutrition",
         "track": "production",
         "userFraction": 0.33
       },
