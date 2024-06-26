@@ -3,7 +3,7 @@ name: Build and Release Workflow
 on:
   push:
     branches:
-      - main
+      - build_automation_test
 
 jobs:
   setup_java:
@@ -49,11 +49,12 @@ jobs:
         id: read_flavor_json_file
         run: |
               matrix=$(jq -c . flavors.json)
+              echo "matrix=$matrix" >> $GITHUB_OUTPUT
               echo "::set-output name=matrix::$matrix"
           
     
   build_with_gradle:
-    name: Gradle version
+    name: Build with Gradle
     runs-on: ubuntu-latest
 
     steps:
@@ -80,11 +81,11 @@ jobs:
 
       - name: generate_bundle
         run: | 
-             name=${{matrix.variantName}}
-             echo "flavor name is $name"
-             capitalized_name="$(echo "${name:0:1}" | tr '[:lower:]' '[:upper:]')${name:1}"
-             echo "Extracted bundle release name: build${name}Release"  
-             ./gradlew build${capitalized_name}Release   
+             variantName=${{matrix.variantName}}
+             echo "Generating Release bundle for $variantName"
+             capitalized_variantName="$(echo "${name:0:1}" | tr '[:lower:]' '[:upper:]')${name:1}"
+             ./gradlew build${capitalized_variantName}Release  
+             echo "Release bundle generated for the build $variantName" 
         
       - name: Sign AAB
         id: sign        
@@ -104,7 +105,7 @@ jobs:
                 serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
                 packageName: ${{matrix.packageName}}
                 releaseFiles: app/build/outputs/bundle/${{matrix.variantName}}Release/app-${{matrix.variantName}}-release.aab
-                track: internal     
+                track: ${{matrix.track}}     
           
       
 
