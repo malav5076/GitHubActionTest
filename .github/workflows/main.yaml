@@ -58,6 +58,9 @@ jobs:
           echo "opening app/build"
           cd app/build
           ls
+          echo "opening outputs"
+          cd outputs
+          ls
           echo "opening buildAutomation"
           cd buildAutomation
           ls
