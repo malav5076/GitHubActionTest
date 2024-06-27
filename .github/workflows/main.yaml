@@ -60,7 +60,7 @@ jobs:
       - name: Read flavor JSON File
         id: read_flavor_json_file
         run: |
-          matrix=$(jq -c . flavors.json)
+          matrix=$(jq -c . app\build\outputs\buildAutomation\flavors.json )
           echo "matrix=$matrix" >> $GITHUB_OUTPUT
   
 
