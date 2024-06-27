@@ -37,7 +37,6 @@ jobs:
     name: Reads json file
     runs-on: ubuntu-latest
    
-    needs: build_with_gradle
 
     outputs:
       matrix: ${{ steps.read_flavor_json_file.outputs.matrix }}
