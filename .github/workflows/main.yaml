@@ -52,7 +52,7 @@ jobs:
       - name: Extract and print current directory name
         run: |
           current_dir_name=$(basename "$PWD")
-          echo "Current directory name is: $current_dir_name"
+          echo "Current directory name is. it is checking: $current_dir_name"
       - name: List the files and directories
         run: |
           ls -R
