@@ -55,8 +55,10 @@ jobs:
       - name: List the files and directories
         run: |
           ls
-          cd app/build/outputs
+          echo "opening app/build"
+          cd app/build
           ls
+          echo "opening buildAutomation"
           cd buildAutomation
           ls
 
