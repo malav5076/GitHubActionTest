@@ -54,7 +54,11 @@ jobs:
           echo "Current directory name is. it is checking: $current_dir_name"
       - name: List the files and directories
         run: |
-          ls -R
+          ls
+          cd app/build/outputs
+          ls
+          cd buildAutomation
+          ls
 
       - name: Read flavor JSON File
         id: read_flavor_json_file
